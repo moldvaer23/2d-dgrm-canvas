@@ -1,7 +1,13 @@
+import { ShapesState } from '@app-types'
 import { FC, useEffect, useRef } from 'react'
 
-export const CanvasComponent: FC = () => {
+type TProps = {
+	shapesState: ShapesState
+}
+
+export const CanvasComponent: FC<TProps> = ({ shapesState }) => {
 	const canvasRef = useRef<HTMLCanvasElement | null>(null)
+	const shapes = Object.values(shapesState)
 
 	useEffect(() => {
 		const current = canvasRef.current
@@ -10,8 +16,8 @@ export const CanvasComponent: FC = () => {
 		const ctx = current.getContext('2d')
 		if (!ctx) return
 
-		ctx.fillStyle = 'red'
-		ctx.fillRect(100, 100, 100, 100)
+		/* Отрисовываем все фигуры */
+		shapes.map((s) => s.draw(ctx))
 	}, [])
 
 	return <canvas ref={canvasRef} width={1000} height={1000} />

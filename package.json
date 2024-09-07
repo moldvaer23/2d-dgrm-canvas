@@ -65,5 +65,10 @@
 		"*.{css,scss}": "yarn run stylelint:fix",
 		"*.{js,jsx,ts,tsx}": "yarn run lint",
 		"*.{js,jsx,ts,tsx,json,css,scss,md}": "yarn run format"
+	},
+	"config": {
+		"commitizen": {
+			"path": "./node_modules/cz-conventional-changelog"
+		}
 	}
 }
