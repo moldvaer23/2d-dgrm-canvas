@@ -1,25 +1,24 @@
 import { Shape } from '@components/models/shape'
-import { IRectangle, RectangleProps } from './types'
-import { Parameters } from '@app-types'
+import { RectangleProps } from './types'
 
-export class Rectangle extends Shape implements IRectangle {
-	public parameters: Parameters
-
-	public constructor(props: RectangleProps) {
-		super({
-			coordinates: props.coordinates,
-		})
-
-		this.parameters = props.parameters
+export class Rectangle extends Shape {
+	constructor(props: RectangleProps) {
+		super(props)
 	}
 
-	public draw(ctx: CanvasRenderingContext2D) {
-		ctx.fillStyle = 'red'
-		ctx.fillRect(
-			this.coordinates.x,
-			this.coordinates.y,
-			this.parameters.w,
-			this.parameters.h
-		)
+	draw(ctx: CanvasRenderingContext2D) {
+		const { x, y } = this._coordinates
+		const { w, h } = this._size
+
+		/* Отрисовываем прямоугольник */
+		ctx.fillStyle = this._shapeColor
+		ctx.fillRect(x, y, w, h)
+
+		/* Отрисовываем текст */
+		ctx.fillStyle = this._textColor
+		ctx.textAlign = 'center'
+		ctx.textBaseline = 'middle'
+		ctx.font = `${this._textSize}px ${this._textFamily}`
+		ctx.fillText(this._text, x + w / 2, y + h / 2)
 	}
 }

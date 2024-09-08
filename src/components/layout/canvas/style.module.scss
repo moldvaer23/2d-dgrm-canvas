@@ -1,0 +1,13 @@
+.wrapper {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+}
+
+.canvas {
+	background-image: radial-gradient(rgb(73 80 87 / 60%) 1px, transparent 0);
+	background-size: 24px 24px;
+}

@@ -1,10 +1,3 @@
-import { Coordinates, Parameters } from '@app-types'
+import { ShapeProps } from '@components/models/shape/types'
 
-export interface IRectangle {
-	parameters: Parameters
-}
-
-export type RectangleProps = {
-	coordinates: Coordinates
-	parameters: Parameters
-}
+export type RectangleProps = ShapeProps

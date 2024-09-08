@@ -6,6 +6,11 @@ import { Rectangle } from '@components/models/rectangle'
 export type ShapesVariant = Rectangle
 
 /**
+ * Тип перечисление видов фигур в виде ключей
+ */
+export type ShapesKeys = 'rectangle'
+
+/**
  * Тип хранилища фигур
  */
 export type ShapesState = Record<string, ShapesVariant>
@@ -21,7 +26,7 @@ export type Coordinates = {
 /**
  * Тип параметров 2d объекта
  */
-export type Parameters = {
+export type Size = {
 	w: number
 	h: number
 }

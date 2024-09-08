@@ -2,11 +2,16 @@ import { Rectangle } from '@components/models/rectangle'
 
 export const mockRectangle: Record<string, Rectangle> = {
 	'0': new Rectangle({
-		coordinates: { x: 100, y: 100 },
-		parameters: { w: 20, h: 20 },
-	}),
-	'1': new Rectangle({
-		coordinates: { x: 200, y: 100 },
-		parameters: { w: 20, h: 20 },
+		coordinates: {
+			x: 500,
+			y: 500,
+		},
+		size: {
+			w: 100,
+			h: 50,
+		},
+		text: 'Title',
+		shapeColor: 'black',
+		textColor: 'white',
 	}),
 }
