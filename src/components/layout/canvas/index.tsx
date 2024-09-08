@@ -61,6 +61,10 @@ export const CanvasComponent: FC<TProps> = ({
 		const ctx = canvas.getContext('2d')
 		if (!ctx) return
 
+		ctx.font = '25px Arial'
+		ctx.textAlign = 'center'
+		ctx.textBaseline = 'middle'
+
 		/* Отрисовываем все фигуры */
 		shapes.forEach((shape) => shape.draw(ctx))
 	}, [shapesState])

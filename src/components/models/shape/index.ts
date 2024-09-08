@@ -1,12 +1,11 @@
 import { v4 as uuid } from 'uuid'
 import { IShape, ShapeProps } from './types'
-import { Coordinates, Size } from '@app-types'
+import { Coordinates } from '@app-types'
 
 export class Shape implements IShape {
 	public id: string
 
 	protected _coordinates: Coordinates
-	protected _size: Size
 
 	protected _shapeColor: string
 	protected _textColor: string
@@ -22,9 +21,6 @@ export class Shape implements IShape {
 
 		/* Координаты */
 		this._coordinates = props.coordinates
-
-		/* Параметры */
-		this._size = props.size
 
 		/* Цвета */
 		this._shapeColor = props.shapeColor

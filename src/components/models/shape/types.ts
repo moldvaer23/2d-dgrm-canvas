@@ -1,4 +1,4 @@
-import { Coordinates, Size } from '@app-types'
+import { Coordinates } from '@app-types'
 
 export interface IShape {
 	id: string
@@ -7,7 +7,6 @@ export interface IShape {
 
 export type ShapeProps = {
 	coordinates: Coordinates
-	size: Size
 	shapeColor: string
 	textColor: string
 	text: string

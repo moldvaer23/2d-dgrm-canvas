@@ -1,9 +1,19 @@
+import { Size } from '@app-types'
 import { Shape } from '@components/models/shape'
 import { RectangleProps } from './types'
 
 export class Rectangle extends Shape {
+	protected _size: Size
+
 	constructor(props: RectangleProps) {
-		super(props)
+		super({
+			coordinates: props.coordinates,
+			shapeColor: props.shapeColor,
+			text: props.text,
+			textColor: props.textColor,
+		})
+
+		this._size = props.size
 	}
 
 	draw(ctx: CanvasRenderingContext2D) {
@@ -16,9 +26,6 @@ export class Rectangle extends Shape {
 
 		/* Отрисовываем текст */
 		ctx.fillStyle = this._textColor
-		ctx.textAlign = 'center'
-		ctx.textBaseline = 'middle'
-		ctx.font = `${this._textSize}px ${this._textFamily}`
 		ctx.fillText(this._text, x + w / 2, y + h / 2)
 	}
 }

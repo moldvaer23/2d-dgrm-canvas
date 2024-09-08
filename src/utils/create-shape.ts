@@ -1,5 +1,6 @@
 import { CONFIG_CANVAS_PARAMETERS } from '@app-config'
 import { ShapesVariant, ShapesKeys, Coordinates, Size } from '@app-types'
+import { Circle } from '@components/models/circle'
 import { Rectangle } from '@components/models/rectangle'
 
 export const createShape = (
@@ -32,6 +33,17 @@ export const createShape = (
 				shapeColor: 'black',
 				textColor: 'white',
 				text: 'Title',
+			})
+		}
+		case 'circle': {
+			const radius = 50
+			const shapeSize = { w: radius, h: radius }
+			return new Circle({
+				coordinates: calcShapeCoordinates(shapeSize),
+				radius: radius,
+				shapeColor: 'black',
+				text: 'Title',
+				textColor: 'white',
 			})
 		}
 	}

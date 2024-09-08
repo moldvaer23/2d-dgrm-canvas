@@ -1,6 +1,5 @@
 import { FC, MouseEvent, useState } from 'react'
 import { ShapesKeys, ShapesState } from '@app-types'
-import { mockRectangle } from '@utils/mock'
 import { createShape } from '@utils/create-shape'
 import { MenuTools } from '@components/menus/tools'
 import { CanvasComponent } from '@components/layout/canvas'
@@ -8,7 +7,7 @@ import { CanvasComponent } from '@components/layout/canvas'
 import style from './style.module.scss'
 
 export const Page: FC = () => {
-	const [shapes, setShapes] = useState<ShapesState>(mockRectangle)
+	const [shapes, setShapes] = useState<ShapesState>({})
 	const [canvasPosition, setCanvasPosition] = useState({ x: 0, y: 0 })
 
 	const onClickMenuButton = (e: MouseEvent<HTMLButtonElement>) => {

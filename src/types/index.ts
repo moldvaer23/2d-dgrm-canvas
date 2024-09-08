@@ -1,14 +1,15 @@
+import { Circle } from '@components/models/circle'
 import { Rectangle } from '@components/models/rectangle'
 
 /**
  * Тип перечисление видов фигур
  */
-export type ShapesVariant = Rectangle
+export type ShapesVariant = Rectangle | Circle
 
 /**
  * Тип перечисление видов фигур в виде ключей
  */
-export type ShapesKeys = 'rectangle'
+export type ShapesKeys = 'rectangle' | 'circle'
 
 /**
  * Тип хранилища фигур

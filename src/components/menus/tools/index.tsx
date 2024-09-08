@@ -14,6 +14,11 @@ export const MenuTools: FC<TProps> = ({ onClickMenuButton }) => (
 					Прямоугольник
 				</button>
 			</li>
+			<li>
+				<button id='circle' onClick={onClickMenuButton}>
+					Круг
+				</button>
+			</li>
 		</ul>
 	</div>
 )
