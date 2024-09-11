@@ -1,50 +1,34 @@
-# React + TypeScript + Vite
+# 🐱 Pet-проект 2d-dgrm-canvas
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📝 Описание проекта
 
-Currently, two official plugins are available:
+2d-dgrm-canvas — это инструмент для создания диаграмм, деревьев решений, дорожных карт (roadmap), фамильных деревьев и других подобных структур. Приложение предоставляет гибкие возможности для визуализации сложных связей между различными элементами, позволяя создавать и редактировать деревья в удобном интерфейсе.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Реализованные фичи
 
-## Expanding the ESLint configuration
+- Возможность создания фигур с текстом.
+- Перемещение по полю.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### 📚 Используемые технологии
 
-- Configure the top-level `parserOptions` property like this:
+- React
+- Redux
+- TypeScript
+- Sass
+- Vite
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+### Демонстрация проекта
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+Скриншот приложения:
+![image](https://github.com/user-attachments/assets/08e6de7e-8ed6-4835-849c-e8d4d12d3f6c)
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## ✅ Системные требования
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+- yarn@ >= 1.22.22
+- nodeJs@ >= 20.15.0
+
+## Статус проекта и планы на будущее
+
+На данный момент 2d-dgrm-canvas находится в стадии разработки. В будущем планируется добавить следующие возможности:
+- систему авторизаций
+- расширить кол-во инструментов для работы с полем
