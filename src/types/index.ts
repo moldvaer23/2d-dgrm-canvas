@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from 'react'
+
 /**
  * Базовый тип для фигур
  */
@@ -21,6 +23,24 @@ export type Rectangle = Shape & {
  */
 export type Circle = Shape & {
 	radius: number
+}
+
+/**
+ * Тип компонента текст
+ */
+export type Text = {
+	id: string
+	coordinates: Coordinates
+	textColor: string
+	text: string
+	size: Size
+}
+
+/**
+ * Тип пропсов для компонента текст
+ */
+export type TextProps = Text & {
+	setDragShape: (v: boolean) => void
 }
 
 /**
@@ -49,14 +69,19 @@ export type Size = {
 /**
  * Тип перечисление видов фигур
  */
-export type ShapesVariant = Rectangle | Circle
+export type ShapesVariant = Rectangle | Circle | Text
 
 /**
  * Тип перечисление видов фигур в виде ключей
  */
-export type ShapesKeys = 'rectangle' | 'circle'
+export type ShapesKeys = 'rectangle' | 'circle' | 'text'
 
 /**
  * Тип словаря
  */
 export type List<T> = Record<string, T>
+
+/**
+ * Тип функции для установки значений в useState
+ */
+export type SetState<T> = Dispatch<SetStateAction<T>>

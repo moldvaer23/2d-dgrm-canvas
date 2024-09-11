@@ -19,6 +19,11 @@ export const MenuTools: FC<Props> = ({ onClickMenuButton }) => (
 					Круг
 				</button>
 			</li>
+			<li>
+				<button id='text' onClick={onClickMenuButton}>
+					Текст
+				</button>
+			</li>
 		</ul>
 	</div>
 )

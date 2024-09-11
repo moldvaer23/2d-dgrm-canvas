@@ -1,15 +1,18 @@
 import { FC, MouseEvent, useRef, useState } from 'react'
+
 import { CONFIG_CANVAS_PARAMETERS } from '@app-config'
-import { Circle, Coordinates, List, Rectangle } from '@app-types'
+import { Circle, Coordinates, List, Rectangle, Text } from '@app-types'
 
 import CircleComponent from '@components/ui/circle'
 import RectangleComponent from '@components/ui/rectangle'
+import TextComponentDraggable from '@components/ui/text-draggable'
 
 import './style.scss'
 
 type Props = {
 	rectanglesState: List<Rectangle>
 	circlesState: List<Circle>
+	textsState: List<Text>
 	onPositionChange: (coordinates: Coordinates) => void
 }
 
@@ -17,6 +20,7 @@ export const CanvasComponent: FC<Props> = ({
 	onPositionChange,
 	rectanglesState,
 	circlesState,
+	textsState,
 }) => {
 	const [drag, setDrag] = useState<boolean>(false)
 	const [dragShape, setDragShape] = useState<boolean>(false)
@@ -27,6 +31,7 @@ export const CanvasComponent: FC<Props> = ({
 	/* Переводим словари в массивы */
 	const rectangles = Object.values(rectanglesState)
 	const circles = Object.values(circlesState)
+	const texts = Object.values(textsState)
 
 	/* Хендлер начала перемещения */
 	const handleMouseDown = (e: MouseEvent) => {
@@ -81,19 +86,27 @@ export const CanvasComponent: FC<Props> = ({
 				width={CONFIG_CANVAS_PARAMETERS.W}
 				height={CONFIG_CANVAS_PARAMETERS.H}
 			>
-				{rectangles.map((rect, index) => (
+				{rectangles.map((rect) => (
 					<RectangleComponent
-						key={index}
+						key={rect.id}
 						setDragShape={setDragShape}
 						{...rect}
 					/>
 				))}
 
-				{circles.map((circle, index) => (
+				{circles.map((circle) => (
 					<CircleComponent
-						key={index}
+						key={circle.id}
 						setDragShape={setDragShape}
 						{...circle}
+					/>
+				))}
+
+				{texts.map((text) => (
+					<TextComponentDraggable
+						key={text.id}
+						setDragShape={setDragShape}
+						{...text}
 					/>
 				))}
 			</svg>

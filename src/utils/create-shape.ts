@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction } from 'react'
 import { v4 as uuid } from 'uuid'
 import { CONFIG_CANVAS_PARAMETERS } from '@app-config'
 import {
@@ -6,15 +5,18 @@ import {
 	Coordinates,
 	List,
 	Rectangle,
+	SetState,
 	ShapesKeys,
 	Size,
+	Text,
 } from '@app-types'
 
 type Props = {
 	key: ShapesKeys
 	canvasPosition: Coordinates
-	setRectangles: Dispatch<SetStateAction<List<Rectangle>>>
-	setCircles: Dispatch<SetStateAction<List<Circle>>>
+	setRectangles: SetState<List<Rectangle>>
+	setCircles: SetState<List<Circle>>
+	setTexts: SetState<List<Text>>
 }
 
 export const createShape = ({
@@ -22,6 +24,7 @@ export const createShape = ({
 	key,
 	setCircles,
 	setRectangles,
+	setTexts,
 }: Props) => {
 	/* Необходимые данные для вычисления координат */
 	const { innerWidth: w, innerHeight: h } = window
@@ -68,6 +71,19 @@ export const createShape = ({
 			}
 
 			setCircles((prev) => ({ ...prev, [shape.id]: shape }))
+			break
+		}
+		case 'text': {
+			const shapeSize = { w: 96, h: 48 }
+			const shape: Text = {
+				id: uuid(),
+				coordinates: calcShapeCoordinates(shapeSize),
+				text: 'Title',
+				size: shapeSize,
+				textColor: 'black',
+			}
+
+			setTexts((prev) => ({ ...prev, [shape.id]: shape }))
 			break
 		}
 	}
