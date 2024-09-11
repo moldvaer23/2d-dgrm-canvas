@@ -1,40 +1,48 @@
-import { FC, MouseEvent, useEffect, useRef, useState } from 'react'
-
-import { Coordinates, ShapesState } from '@app-types'
+import { FC, MouseEvent, useRef, useState } from 'react'
 import { CONFIG_CANVAS_PARAMETERS } from '@app-config'
+import { Circle, Coordinates, List, Rectangle } from '@app-types'
 
-import style from './style.module.scss'
+import CircleComponent from '@components/ui/circle'
+import RectangleComponent from '@components/ui/rectangle'
 
-type TProps = {
-	shapesState: ShapesState
-	onPositionChange: (position: Coordinates) => void
+import './style.scss'
+
+type Props = {
+	rectanglesState: List<Rectangle>
+	circlesState: List<Circle>
+	onPositionChange: (coordinates: Coordinates) => void
 }
 
-export const CanvasComponent: FC<TProps> = ({
-	shapesState,
+export const CanvasComponent: FC<Props> = ({
 	onPositionChange,
+	rectanglesState,
+	circlesState,
 }) => {
-	const canvasRef = useRef<HTMLCanvasElement | null>(null)
-	const [isDragging, setIsDragging] = useState(false)
-	const [position, setPosition] = useState({ x: 0, y: 0 })
-	const [dragStart, setDragStart] = useState({ x: 0, y: 0 })
+	const [drag, setDrag] = useState<boolean>(false)
+	const [dragShape, setDragShape] = useState<boolean>(false)
+	const [dragStart, setDragStart] = useState<Coordinates>({ x: 0, y: 0 })
+	const [position, setPosition] = useState<Coordinates>({ x: 0, y: 0 })
+	const canvasRef = useRef<SVGSVGElement | null>(null)
 
-	const shapes = Object.values(shapesState)
+	/* Переводим словари в массивы */
+	const rectangles = Object.values(rectanglesState)
+	const circles = Object.values(circlesState)
 
 	/* Хендлер начала перемещения */
 	const handleMouseDown = (e: MouseEvent) => {
-		setIsDragging(true)
+		const canvas = canvasRef.current
+		if (!canvas) return
+
+		setDrag(true)
 		setDragStart({ x: e.clientX - position.x, y: e.clientY - position.y })
 	}
 
 	/* Хендлер перемещения */
 	const handleMouseMove = (e: MouseEvent) => {
-		if (!isDragging || !canvasRef.current) return
-
-		const { width: canvasWidth, height: canvasHeight } = canvasRef.current
+		if (!drag || dragShape) return
+		const { W: canvasWidth, H: canvasHeight } = CONFIG_CANVAS_PARAMETERS
 		const { innerWidth: windowWidth, innerHeight: windowHeight } = window
 
-		// Вычисляем новое смещение с учетом ограничений
 		let newX = e.clientX - dragStart.x
 		let newY = e.clientY - dragStart.y
 
@@ -51,43 +59,44 @@ export const CanvasComponent: FC<TProps> = ({
 	}
 
 	/* Хендлер окончания перемещения */
-	const handleMouseUp = () => setIsDragging(false)
-
-	/* Работа с контекстом Canvas */
-	useEffect(() => {
-		const canvas = canvasRef.current
-		if (!canvas) return
-
-		const ctx = canvas.getContext('2d')
-		if (!ctx) return
-
-		ctx.font = '25px Arial'
-		ctx.textAlign = 'center'
-		ctx.textBaseline = 'middle'
-
-		/* Отрисовываем все фигуры */
-		shapes.forEach((shape) => shape.draw(ctx))
-	}, [shapesState])
+	const handleMouseUp = () => setDrag(false)
 
 	return (
 		<div
-			className={style.wrapper}
+			className='canvas__wrapper'
 			onMouseDown={handleMouseDown}
 			onMouseMove={handleMouseMove}
 			onMouseUp={handleMouseUp}
 		>
-			<canvas
+			<svg
+				className='canvas'
 				style={{
 					position: 'absolute',
 					top: `calc(50% + ${position.y}px)`,
 					left: `calc(50% + ${position.x}px)`,
 					transform: 'translate(-50%, -50%)',
 				}}
-				className={style.canvas}
+				id='canvas'
 				ref={canvasRef}
 				width={CONFIG_CANVAS_PARAMETERS.W}
 				height={CONFIG_CANVAS_PARAMETERS.H}
-			/>
+			>
+				{rectangles.map((rect, index) => (
+					<RectangleComponent
+						key={index}
+						setDragShape={setDragShape}
+						{...rect}
+					/>
+				))}
+
+				{circles.map((circle, index) => (
+					<CircleComponent
+						key={index}
+						setDragShape={setDragShape}
+						{...circle}
+					/>
+				))}
+			</svg>
 		</div>
 	)
 }

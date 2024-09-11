@@ -1,12 +1,28 @@
+import { Dispatch, SetStateAction } from 'react'
+import { v4 as uuid } from 'uuid'
 import { CONFIG_CANVAS_PARAMETERS } from '@app-config'
-import { ShapesVariant, ShapesKeys, Coordinates, Size } from '@app-types'
-import { Circle } from '@components/models/circle'
-import { Rectangle } from '@components/models/rectangle'
+import {
+	Circle,
+	Coordinates,
+	List,
+	Rectangle,
+	ShapesKeys,
+	Size,
+} from '@app-types'
 
-export const createShape = (
-	key: ShapesKeys,
+type Props = {
+	key: ShapesKeys
 	canvasPosition: Coordinates
-): ShapesVariant => {
+	setRectangles: Dispatch<SetStateAction<List<Rectangle>>>
+	setCircles: Dispatch<SetStateAction<List<Circle>>>
+}
+
+export const createShape = ({
+	canvasPosition,
+	key,
+	setCircles,
+	setRectangles,
+}: Props) => {
 	/* Необходимые данные для вычисления координат */
 	const { innerWidth: w, innerHeight: h } = window
 	const { W: canvasW, H: canvasH } = CONFIG_CANVAS_PARAMETERS
@@ -26,25 +42,33 @@ export const createShape = (
 
 	switch (key) {
 		case 'rectangle': {
-			const shapeSize = { w: 100, h: 50 }
-			return new Rectangle({
+			const shapeSize = { w: 96, h: 48 }
+			const shape: Rectangle = {
+				id: uuid(),
 				coordinates: calcShapeCoordinates(shapeSize),
-				size: shapeSize,
 				shapeColor: 'black',
-				textColor: 'white',
+				size: shapeSize,
 				text: 'Title',
-			})
+				textColor: 'white',
+			}
+
+			setRectangles((prev) => ({ ...prev, [shape.id]: shape }))
+			break
 		}
 		case 'circle': {
 			const radius = 50
 			const shapeSize = { w: radius, h: radius }
-			return new Circle({
+			const shape: Circle = {
+				id: uuid(),
 				coordinates: calcShapeCoordinates(shapeSize),
 				radius: radius,
 				shapeColor: 'black',
 				text: 'Title',
 				textColor: 'white',
-			})
+			}
+
+			setCircles((prev) => ({ ...prev, [shape.id]: shape }))
+			break
 		}
 	}
 }

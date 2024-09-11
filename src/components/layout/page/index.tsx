@@ -1,13 +1,14 @@
 import { FC, MouseEvent, useState } from 'react'
-import { ShapesKeys, ShapesState } from '@app-types'
+import { Circle, List, Rectangle, ShapesKeys } from '@app-types'
 import { createShape } from '@utils/create-shape'
 import { MenuTools } from '@components/menus/tools'
 import { CanvasComponent } from '@components/layout/canvas'
 
-import style from './style.module.scss'
+import './style.scss'
 
 export const Page: FC = () => {
-	const [shapes, setShapes] = useState<ShapesState>({})
+	const [rectanglesState, setRectangles] = useState<List<Rectangle>>({})
+	const [circlesState, setCircles] = useState<List<Circle>>({})
 	const [canvasPosition, setCanvasPosition] = useState({ x: 0, y: 0 })
 
 	const onClickMenuButton = (e: MouseEvent<HTMLButtonElement>) => {
@@ -15,21 +16,23 @@ export const Page: FC = () => {
 
 		/* Достаем ключ фигуры */
 		const shapeKey = e.currentTarget.getAttribute('id') as ShapesKeys
-		if (!shapeKey) {
-			console.error('Неправильный ключ фигуры')
-			return
-		}
+		if (!shapeKey) return
 
 		/* Создаем фигуру по ключу */
-		const shape = createShape(shapeKey, canvasPosition)
-		setShapes((prev) => ({ ...prev, [shape.id]: shape }))
+		createShape({
+			canvasPosition: canvasPosition,
+			key: shapeKey,
+			setCircles: setCircles,
+			setRectangles: setRectangles,
+		})
 	}
 
 	return (
-		<div className={style.page}>
+		<div className='page'>
 			<MenuTools onClickMenuButton={onClickMenuButton} />
 			<CanvasComponent
-				shapesState={shapes}
+				rectanglesState={rectanglesState}
+				circlesState={circlesState}
 				onPositionChange={setCanvasPosition}
 			/>
 		</div>

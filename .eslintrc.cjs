@@ -12,13 +12,14 @@ module.exports = {
 		'import/resolver': {
 			alias: {
 				map: [
-					["@app", "src/app"],
-					["@components", "src/components"],
-					["@services", "src/services"],
-					["@utils", "src/utils"],
-					["@styles", "src/styles"],
-					["@app-types", "src/types"],
-					["@app-config", "src/config"],
+					['@app', 'src/app'],
+					['@components', 'src/components'],
+					['@services', 'src/services'],
+					['@utils', 'src/utils'],
+					['@styles', 'src/styles'],
+					['@app-types', 'src/types'],
+					['@app-config', 'src/config'],
+					['@hooks', 'src/hooks'],
 				],
 				extensions: ['.ts', '.tsx', '.js', '.jsx'],
 			},

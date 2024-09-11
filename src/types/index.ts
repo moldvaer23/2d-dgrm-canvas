@@ -1,20 +1,34 @@
-import { Circle } from '@components/models/circle'
-import { Rectangle } from '@components/models/rectangle'
+/**
+ * Базовый тип для фигур
+ */
+export type Shape = {
+	id: string
+	coordinates: Coordinates
+	shapeColor: string
+	textColor: string
+	text: string
+}
 
 /**
- * Тип перечисление видов фигур
+ * Тип прямоугольника
  */
-export type ShapesVariant = Rectangle | Circle
+export type Rectangle = Shape & {
+	size: Size
+}
 
 /**
- * Тип перечисление видов фигур в виде ключей
+ * Тип круга
  */
-export type ShapesKeys = 'rectangle' | 'circle'
+export type Circle = Shape & {
+	radius: number
+}
 
 /**
- * Тип хранилища фигур
+ * Тип пропсов для фигуры
  */
-export type ShapesState = Record<string, ShapesVariant>
+export type ShapeProps = Shape & {
+	setDragShape: (v: boolean) => void
+}
 
 /**
  * Тип 2d координат
@@ -31,3 +45,18 @@ export type Size = {
 	w: number
 	h: number
 }
+
+/**
+ * Тип перечисление видов фигур
+ */
+export type ShapesVariant = Rectangle | Circle
+
+/**
+ * Тип перечисление видов фигур в виде ключей
+ */
+export type ShapesKeys = 'rectangle' | 'circle'
+
+/**
+ * Тип словаря
+ */
+export type List<T> = Record<string, T>

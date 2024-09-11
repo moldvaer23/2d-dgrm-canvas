@@ -13,7 +13,8 @@
 			"@styles/*": ["src/styles/*"],
 			"@utils/*": ["src/utils/*"],
 			"@app-types": ["src/types"],
-			"@app-config": ["src/config"]
+			"@app-config": ["src/config"],
+			"@hooks/*": ["src/hooks/*"]
 		},
 
 		/* Bundler mode */

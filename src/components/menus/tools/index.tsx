@@ -1,13 +1,13 @@
 import { FC, MouseEvent } from 'react'
 
-import style from './style.module.scss'
+import './style.scss'
 
-type TProps = {
+type Props = {
 	onClickMenuButton: (e: MouseEvent<HTMLButtonElement>) => void
 }
 
-export const MenuTools: FC<TProps> = ({ onClickMenuButton }) => (
-	<div className={style.wrapper}>
+export const MenuTools: FC<Props> = ({ onClickMenuButton }) => (
+	<div className='menu-tools__wrapper'>
 		<ul>
 			<li>
 				<button id='rectangle' onClick={onClickMenuButton}>
