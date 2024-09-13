@@ -1,5 +1,4 @@
-import { Shape } from '@app-types'
-import { MouseEvent, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 type Props = {
 	id: string
@@ -7,59 +6,39 @@ type Props = {
 }
 
 const useShapeClick = ({ id, moved }: Props) => {
-	const [stepOne, setStepOne] = useState<boolean>(false)
-	const [stepTwo, setStepTwo] = useState<boolean>(false)
+	const [step, setStep] = useState<number>(0)
 
-	const onClickShape = (_: MouseEvent<SVGGElement>, data: Shape) => {
+	/* Метод клика по фигуре */
+	const onClickShape = useCallback(() => {
 		if (moved) return
-		void data
+		setStep((prevStep) => (prevStep + 1) % 3)
+	}, [moved])
 
-		/* Если кликнули один раз то устанавливаем первый шаг */
-		if (!stepOne && !stepTwo) {
-			setStepOne(true)
-			return
-		}
-
-		/* Если кликнули второй раз то устанавливаем второй шаг */
-		if (stepOne && !stepTwo) {
-			setStepOne(false)
-			setStepTwo(true)
-			return
-		}
-
-		/* Если кликнули третий раз то отключаем второй шаг */
-		if (stepTwo) {
-			setStepTwo(false)
-		}
-	}
+	/* Метод для сброса значений шага */
+	const resetSteps = useCallback(() => {
+		setStep(0)
+	}, [])
 
 	/* Обработка клика вне фигуры */
 	useEffect(() => {
 		const handleClickOutside = (event: globalThis.MouseEvent) => {
-			if (stepOne || stepTwo) {
-				/* Получаем фигуру по её id */
-				const g = document.getElementById(id) as SVGGElement | null
-
-				/* Если был клик за пределами фигуры обнуляем промежутки */
-				if (g && !g.contains(event.target as Node)) {
-					setStepOne(false)
-					setStepTwo(false)
-				}
+			const g = document.getElementById(id) as SVGGElement | null
+			if (g && !g.contains(event.target as Node)) {
+				/* Сбрасываем шаги если клик был сделан вне фигуры */
+				resetSteps()
 			}
 		}
 
-		/* Добавляем глобальный обработчик клика */
 		document.addEventListener('mousedown', handleClickOutside)
 
-		/* Убираем обработчик при размонтировании компонента */
 		return () => {
 			document.removeEventListener('mousedown', handleClickOutside)
 		}
-	}, [stepOne, stepTwo])
+	}, [id, resetSteps])
 
 	return {
-		stepOne,
-		stepTwo,
+		stepOne: step === 1,
+		stepTwo: step === 2,
 		onClickShape,
 	}
 }

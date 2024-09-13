@@ -11,14 +11,13 @@ import './style.scss'
 type Props = {
 	rectanglesState: List<Rectangle>
 	circlesState: List<Circle>
-
 	onPositionChange: (coordinates: Coordinates) => void
 }
 
 export const CanvasComponent: FC<Props> = ({
-	onPositionChange,
 	rectanglesState,
 	circlesState,
+	onPositionChange,
 }) => {
 	const [drag, setDrag] = useState<boolean>(false)
 	const [dragShape, setDragShape] = useState<boolean>(false)

@@ -1,12 +1,13 @@
 import { FC } from 'react'
+
 import clsx from 'clsx'
 import { ShapeProps, Size } from '@app-types'
 
 import useDraggable from '@hooks/use-draggable'
 import useShapeClick from '@hooks/use-shape-click'
 
-import TextComponent from '../../text'
-import HoverTrack from '../hovertrack'
+import TextComponent from '@components/ui/text'
+import HoverTrack from '@components/ui/hovertrack'
 
 type Props = ShapeProps & {
 	size: Size
@@ -14,27 +15,32 @@ type Props = ShapeProps & {
 
 const RectangleComponent: FC<Props> = (props) => {
 	const {
+		id,
+		text,
 		coordinates,
+		shapeColor,
+		textColor,
+		setDragShape,
+		size: { h, w },
+	} = props
+
+	const {
+		moved,
 		handleMouseDown,
 		handleMouseMove,
 		handleMouseUp,
-		moved,
+		actualCoordinates: { x, y },
 	} = useDraggable({
-		initCoordinates: props.coordinates,
-		onDrag: props.setDragShape,
+		initCoordinates: coordinates,
+		onDrag: setDragShape,
 	})
 
-	const { onClickShape, stepOne, stepTwo } = useShapeClick({
-		id: props.id,
-		moved: moved,
-	})
-	const { x, y } = coordinates
-	const { w, h } = props.size
+	const { onClickShape, stepOne, stepTwo } = useShapeClick({ id, moved })
 
 	return (
 		<g
-			onClick={(e) => onClickShape(e, props)}
-			id={props.id}
+			id={id}
+			onClick={onClickShape}
 			onMouseDown={handleMouseDown}
 			onMouseMove={handleMouseMove}
 			onMouseUp={handleMouseUp}
@@ -47,13 +53,13 @@ const RectangleComponent: FC<Props> = (props) => {
 				y={y}
 				height={h}
 				width={w}
-				fill={props.shapeColor}
+				fill={shapeColor}
 			/>
 			<TextComponent
 				x={x + w / 2}
 				y={y + h / 2}
-				text={props.text}
-				textColor={props.textColor}
+				text={text}
+				textColor={textColor}
 			/>
 			<HoverTrack
 				visible={stepOne}

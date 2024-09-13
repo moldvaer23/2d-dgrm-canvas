@@ -61,7 +61,7 @@ export const createShape = ({
 			const shape: Circle = {
 				id: uuid(),
 				coordinates: calcShapeCoordinates(shapeSize),
-				radius: radius,
+				r: radius,
 				shapeColor: 'orange',
 				text: 'Title',
 				textColor: 'white',

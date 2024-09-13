@@ -77,7 +77,7 @@ const useDraggable = ({ initCoordinates, onDrag }: Props) => {
 	}, [])
 
 	return {
-		coordinates,
+		actualCoordinates: coordinates,
 		drag,
 		moved,
 		handleMouseDown,

@@ -3,18 +3,18 @@ import { FC } from 'react'
 type Props = {
 	x: number
 	y: number
-	textColor: string
 	text: string
+	textColor: string
 }
 
-const TextComponent: FC<Props> = ({ text, x, y, textColor }) => (
+const TextComponent: FC<Props> = ({ x, y, text, textColor }) => (
 	<text
 		x={x}
 		y={y}
+		fill={textColor}
+		style={{ pointerEvents: 'none' }}
 		textAnchor='middle'
 		dominantBaseline='middle'
-		style={{ pointerEvents: 'none' }}
-		fill={textColor}
 	>
 		<tspan>{text}</tspan>
 	</text>

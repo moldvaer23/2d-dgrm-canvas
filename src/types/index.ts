@@ -22,7 +22,7 @@ export type Rectangle = Shape & {
  * Тип круга
  */
 export type Circle = Shape & {
-	radius: number
+	r: number
 }
 
 /**

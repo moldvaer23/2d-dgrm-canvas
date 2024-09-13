@@ -1,78 +1,58 @@
 import { FC } from 'react'
+
 import clsx from 'clsx'
 import { ShapeProps } from '@app-types'
 
 import useDraggable from '@hooks/use-draggable'
 import useShapeClick from '@hooks/use-shape-click'
 
-import TextComponent from '../../text'
-import HoverTrack from '../hovertrack'
+import TextComponent from '@components/ui/text'
+import HoverTrack from '@components/ui/hovertrack'
 
 type Props = ShapeProps & {
-	radius: number
+	r: number
 }
 
 const CircleComponent: FC<Props> = (props) => {
+	const { id, r, text, coordinates, shapeColor, textColor, setDragShape } =
+		props
+
 	const {
-		coordinates,
 		moved,
 		handleMouseDown,
 		handleMouseMove,
 		handleMouseUp,
+		actualCoordinates: { x, y },
 	} = useDraggable({
-		initCoordinates: props.coordinates,
-		onDrag: props.setDragShape,
+		initCoordinates: coordinates,
+		onDrag: setDragShape,
 	})
 
-	const { onClickShape, stepOne, stepTwo } = useShapeClick({
-		id: props.id,
-		moved: moved,
-	})
-
-	const { x, y } = coordinates
+	const { onClickShape, stepOne, stepTwo } = useShapeClick({ id, moved })
 
 	return (
 		<g
-			onClick={(e) => onClickShape(e, props)}
-			id={props.id}
+			id={id}
+			onClick={onClickShape}
 			onMouseDown={handleMouseDown}
 			onMouseMove={handleMouseMove}
 			onMouseUp={handleMouseUp}
 		>
 			<circle
-				className={clsx({
-					['highlight']: stepTwo === true,
-				})}
+				className={clsx({ ['highlight']: stepTwo === true })}
 				cx={x}
 				cy={y}
-				r={props.radius}
-				fill={props.shapeColor}
-			/>
-			<TextComponent
-				x={x}
-				y={y}
-				text={props.text}
-				textColor={props.textColor}
+				r={r}
+				fill={shapeColor}
 			/>
 			<HoverTrack
 				visible={stepOne}
-				top={{
-					x: x,
-					y: y - props.radius,
-				}}
-				right={{
-					x: x + props.radius,
-					y: y,
-				}}
-				bottom={{
-					x: x,
-					y: y + props.radius,
-				}}
-				left={{
-					x: x - props.radius,
-					y: y,
-				}}
+				top={{ x: x, y: y - r }}
+				right={{ x: x + r, y: y }}
+				bottom={{ x: x, y: y + r }}
+				left={{ x: x - r, y: y }}
 			/>
+			<TextComponent x={x} y={y} text={text} textColor={textColor} />
 		</g>
 	)
 }
