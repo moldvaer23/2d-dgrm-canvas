@@ -19,6 +19,11 @@ const useShapeClick = ({ id, moved }: Props) => {
 		setStep(0)
 	}, [])
 
+	/* Если начали двигать фигуру сбрасываем шаги */
+	useEffect(() => {
+		if (moved) resetSteps()
+	}, [moved, resetSteps])
+
 	/* Обработка клика вне фигуры */
 	useEffect(() => {
 		const handleClickOutside = (event: globalThis.MouseEvent) => {
