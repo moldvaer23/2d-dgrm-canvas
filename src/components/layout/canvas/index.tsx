@@ -3,8 +3,8 @@ import { FC, MouseEvent, useRef, useState } from 'react'
 import { CONFIG_CANVAS_PARAMETERS } from '@app-config'
 import { Circle, Coordinates, List, Rectangle } from '@app-types'
 
-import CircleComponent from '@components/ui/shapes/circle'
-import RectangleComponent from '@components/ui/shapes/rectangle'
+import CircleComponent from '@components/ui/circle'
+import RectangleComponent from '@components/ui/rectangle'
 
 import './style.scss'
 
