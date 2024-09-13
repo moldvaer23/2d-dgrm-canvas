@@ -11,8 +11,9 @@ const MAP_SIZE = 24
 const useDraggable = ({ initCoordinates, onDrag }: Props) => {
 	const [coordinates, setCoordinates] = useState<Coordinates>(initCoordinates)
 	const [drag, setDrag] = useState<boolean>(false)
-	const offset = useRef<Coordinates>({ x: 0, y: 0 })
+	const [moved, setMoved] = useState<boolean>(false)
 	const canvasRect = useRef<DOMRect | null>(null)
+	const offset = useRef<Coordinates>({ x: 0, y: 0 })
 
 	useEffect(() => {
 		const svgElement = document.getElementById('canvas')
@@ -30,6 +31,7 @@ const useDraggable = ({ initCoordinates, onDrag }: Props) => {
 	const handleMouseDown = useCallback(
 		(e: MouseEvent<SVGElement>) => {
 			setDrag(true)
+			setMoved(false)
 
 			onDrag(true) // Блокируем перемещение по Canvas
 
@@ -47,6 +49,7 @@ const useDraggable = ({ initCoordinates, onDrag }: Props) => {
 	const handleMouseMove = useCallback(
 		(e: MouseEvent<SVGElement>) => {
 			if (!drag || !canvasRect.current) return
+			setMoved(true)
 
 			// Рассчитываем текущие координаты мыши относительно Canvas
 			const currentX = e.clientX - canvasRect.current.left - offset.current.x
@@ -75,6 +78,8 @@ const useDraggable = ({ initCoordinates, onDrag }: Props) => {
 
 	return {
 		coordinates,
+		drag,
+		moved,
 		handleMouseDown,
 		handleMouseMove,
 		handleMouseUp,

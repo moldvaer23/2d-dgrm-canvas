@@ -1,5 +1,7 @@
 import { FC, MouseEvent, useState } from 'react'
-import { Circle, List, Rectangle, ShapesKeys, Text } from '@app-types'
+
+import { Circle, List, Rectangle, ShapesKeys } from '@app-types'
+
 import { createShape } from '@utils/create-shape'
 import { MenuTools } from '@components/menus/tools'
 import { CanvasComponent } from '@components/layout/canvas'
@@ -9,7 +11,6 @@ import './style.scss'
 export const Page: FC = () => {
 	const [rectangles, setRectangles] = useState<List<Rectangle>>({})
 	const [circles, setCircles] = useState<List<Circle>>({})
-	const [texts, setTexts] = useState<List<Text>>({})
 	const [canvasPosition, setCanvasPosition] = useState({ x: 0, y: 0 })
 
 	const onClickMenuButton = (e: MouseEvent<HTMLButtonElement>) => {
@@ -25,7 +26,6 @@ export const Page: FC = () => {
 			key: shapeKey,
 			setCircles: setCircles,
 			setRectangles: setRectangles,
-			setTexts: setTexts,
 		})
 	}
 
@@ -35,7 +35,6 @@ export const Page: FC = () => {
 			<CanvasComponent
 				rectanglesState={rectangles}
 				circlesState={circles}
-				textsState={texts}
 				onPositionChange={setCanvasPosition}
 			/>
 		</div>

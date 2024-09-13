@@ -26,24 +26,6 @@ export type Circle = Shape & {
 }
 
 /**
- * Тип компонента текст
- */
-export type Text = {
-	id: string
-	coordinates: Coordinates
-	textColor: string
-	text: string
-	size: Size
-}
-
-/**
- * Тип пропсов для компонента текст
- */
-export type TextProps = Text & {
-	setDragShape: (v: boolean) => void
-}
-
-/**
  * Тип пропсов для фигуры
  */
 export type ShapeProps = Shape & {
@@ -69,7 +51,7 @@ export type Size = {
 /**
  * Тип перечисление видов фигур
  */
-export type ShapesVariant = Rectangle | Circle | Text
+export type ShapesVariant = Rectangle | Circle
 
 /**
  * Тип перечисление видов фигур в виде ключей

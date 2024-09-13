@@ -8,7 +8,6 @@ import {
 	SetState,
 	ShapesKeys,
 	Size,
-	Text,
 } from '@app-types'
 
 type Props = {
@@ -16,7 +15,6 @@ type Props = {
 	canvasPosition: Coordinates
 	setRectangles: SetState<List<Rectangle>>
 	setCircles: SetState<List<Circle>>
-	setTexts: SetState<List<Text>>
 }
 
 export const createShape = ({
@@ -24,7 +22,6 @@ export const createShape = ({
 	key,
 	setCircles,
 	setRectangles,
-	setTexts,
 }: Props) => {
 	/* Необходимые данные для вычисления координат */
 	const { innerWidth: w, innerHeight: h } = window
@@ -65,7 +62,7 @@ export const createShape = ({
 				id: uuid(),
 				coordinates: calcShapeCoordinates(shapeSize),
 				radius: radius,
-				shapeColor: 'black',
+				shapeColor: 'orange',
 				text: 'Title',
 				textColor: 'white',
 			}
@@ -75,15 +72,16 @@ export const createShape = ({
 		}
 		case 'text': {
 			const shapeSize = { w: 96, h: 48 }
-			const shape: Text = {
+			const shape: Rectangle = {
 				id: uuid(),
 				coordinates: calcShapeCoordinates(shapeSize),
-				text: 'Title',
+				shapeColor: 'transparent',
 				size: shapeSize,
+				text: 'Title',
 				textColor: 'black',
 			}
 
-			setTexts((prev) => ({ ...prev, [shape.id]: shape }))
+			setRectangles((prev) => ({ ...prev, [shape.id]: shape }))
 			break
 		}
 	}
